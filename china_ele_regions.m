@@ -13,8 +13,6 @@ capacity = [
     236 % central
     202];%south
 
-test = 5000;
-
 peak_demand = [
      42 % [GW]
     nan
