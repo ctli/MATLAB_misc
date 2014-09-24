@@ -36,13 +36,23 @@ hournum = hourmax-hourmin;
 WPDprof = zeros(size(prov,1),hournum);
 CFprof = zeros(size(prov,1),hournum);
 
-latmin = 1;
-latmax = 1000;%4319;
-lonmin = 1;
-lonmax = 550;%7359;
+latmin = 2800%1;
+latmax = 3000;%4319;
+lonmin = 2750;%1;
+lonmax = 3000;%7359;
 
 lat_range = latmin:latmax;
 log_range = lonmin:lonmax;
+
+x_id = 4322 - lat_range;
+y_id = log_range;
+AA = A(x_id,y_id);
+
+x_ex = 1 + floor(lat_range/60);
+y_ex = 1 + floor(log_range/80);
+
+tmp = find((AA == 1));
+
 
 % Read available area info from all the tif files
 tic;

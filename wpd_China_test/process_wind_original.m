@@ -42,37 +42,35 @@ disp(strcat('Hours:',num2str(hourmin),'-',num2str(hourmax)));
 WPDprof=zeros(size(prov,1),hournum);
 CFprof=zeros(size(prov,1),hournum);
 
-latmin = 1;
-latmax = 1000;%4319;
-lonmin = 1;
-lonmax = 550;%7359;
+latmin = 2800%1;
+latmax = 3000;%4319;
+lonmin = 2750;%1;
+lonmax = 3000;%7359;
 
 % Read available area info from all the tif files
-for i=1:size(prov,1)  
+for i=1%:size(prov,1)
     disp(prov(i));
-	
-	WPDtemp = zeros(size(prov,1),hournum);
-	CFtemp = zeros(size(prov,1),hournum);
-	
+    
+    WPDtemp = zeros(size(prov,1),hournum);
+    CFtemp = zeros(size(prov,1),hournum);
+    
     fname = strcat(datadir,prov(i),'.tif');
     [A,~] = geotiffread(char(fname));
     
     count = 0;
-
+    
     for lati=latmin:latmax
         for longti=lonmin:lonmax
-             if A(4322-lati,longti)==1
-                count=count+1;               
-                for j=1:hournum 
+            if A(4322-lati,longti)==1
+                count=count+1;
+                for j=1:hournum
                     WPDtemp(i,j) = WPDtemp(i,j) + wpdyr(1+floor(lati/60),1+floor(longti/80),hourmin+j);
-                    if (~fast)
-                        CFtemp(i,j) = CFtemp(i,j) + powerCurveSL1500(wpdyr(1+floor(lati/60),1+floor(longti/80),hourmin+j));
-                    end	
+%                     CFtemp(i,j) = CFtemp(i,j) + powerCurveSL1500(wpdyr(1+floor(lati/60),1+floor(longti/80),hourmin+j));
                 end
             end
         end
     end
-  
+    
     if count==0
         disp('Error: count = 0');
         continue;
@@ -81,15 +79,15 @@ for i=1:size(prov,1)
 %     for j=1:hournum
 %         WPDtemp(i,j) = WPDtemp(i,j) / count;
 %         if (fast)
-% 			CFtemp(i,j) = powerCurveSL1500(WPDprof(i,j));
+%             CFtemp(i,j) = powerCurveSL1500(WPDprof(i,j));
 %         else
 %             CFtemp(i,j) = CFtemp(i,j) / count;
 %         end
 %     end
-% 
-% 	WPDprof(i,1:hournum) = WPDtemp(i,1:hournum);
-% 	CFprof(i,1:hournum) = CFtemp(i,1:hournum);
-
+%     
+%     WPDprof(i,1:hournum) = WPDtemp(i,1:hournum);
+%     CFprof(i,1:hournum) = CFtemp(i,1:hournum);
+    
 end
 
 save(char(strcat(results,version,'.mat')),'WPDprof', 'CFprof');
