@@ -1,0 +1,14 @@
+There are 6 MATLAB m files:
+
+To run Dynamic Programming on the 2010 Prius, use
+DP_Prius2010.m
+
+To perform the soc correction on mpg, use 
+mpg_soc_correction.m --> You need to mannually type in the soc and mpg values (need more than two data points). The script then uses "polyfit" to find the linear fit.
+
+The following four files are only for visualization:
+plot_BSFC.m --> plot the engine map
+plot_CYC.m --> plot the driving cycle
+plot_GEN_MTR_effmap.m --> plot the motor & generator maps
+plot_soc_SoftConstraint.m --> plot the soft constraint on battery SOC
+
